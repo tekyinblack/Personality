@@ -4,9 +4,9 @@
 # Display lines are numbered 0-F (0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F) and can be in any order
 # but are only displayed when line F is updated
 # '.' or 'X' means start of LED data '.' means OFF, 'X' is ON
-# Lxxx moves left servo to position xxx 
-# Ryyy moves right servo to position yyy
-# Dxxx pauses file read for xxx tenths of a second
+# LEFTxxx moves left servo to position xxx 
+# RIGHTyyy moves right servo to position yyy
+# DELAYxxx pauses file read for xxx tenths of a second
 # AGAIN closes the file and reopens it, typically the last statement
 # CLEAR clears the display of an image
 # QUIT exits the running program, mainly for testing
