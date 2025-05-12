@@ -1,0 +1,51 @@
+# Waving Example
+# Basic syntax of file
+# At the beginning of a line a # sign, blank or anything not a reserved control is ignored
+# Display lines are numbered 0-F (0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F) and can be in any order
+# but are only displayed when line F is updated
+# '.' or 'X' means start of LED data '.' means OFF, 'X' is ON
+# Lxxx moves left servo to position xxx 
+# Ryyy moves right servo to position yyy
+# Dxxx pauses file read for xxx tenths of a second
+# AGAIN closes the file and reopens it, typically the last statement
+# CLEAR clears the display of an image
+# QUIT exits the running program, mainly for testing
+# FILEaaaaa loads display from a file aaaaaa 
+#
+# This example flashes a checkerboard display and waves the arms alternately
+# Clear display
+CLEAR
+# Move left arm to 160 degrees
+LEFT160
+# Move right arm to 140 degrees
+RIGHT140 
+# Paint display with a checkerboard pattern
+#123456789ABCDEF
+0.X.X.X.X.X.X.X.X
+1X.X.X.X.X.X.X.X.
+2.X.X.X.X.X.X.X.X
+3X.X.X.X.X.X.X.X.
+4.X.X.X.X.X.X.X.X
+5X.X.X.X.X.X.X.X.
+6.X.X.X.X.X.X.X.X
+7X.X.X.X.X.X.X.X.
+8.X.X.X.X.X.X.X.X
+9X.X.X.X.X.X.X.X.
+A.X.X.X.X.X.X.X.X
+BX.X.X.X.X.X.X.X.
+C.X.X.X.X.X.X.X.X
+DX.X.X.X.X.X.X.X.
+E.X.X.X.X.X.X.X.X
+FX.X.X.X.X.X.X.X.
+# wait for 1 second ( 10 x 0.1 seconds)
+DELAY10
+# Move left arm to 140 degrees
+LEFT140
+# Move right arm to 160 degrees
+RIGHT160
+# Invert the display
+INVERT
+# wait for 1 second ( 10 x 0.1 seconds)
+DELAY10
+# repeat the file from the beginning
+AGAIN
