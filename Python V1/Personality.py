@@ -21,6 +21,7 @@ reload = False
 # display update control
 reshow = False
 
+global delay_time
 delay_time = 0
 
 print("Starting...")
@@ -46,8 +47,7 @@ display.brightness(5)
 #Clear the display.
 display.clear()
 display.show()
-global line 
-line = -1
+
 
 # command processing
 def command_proc(text):
@@ -56,8 +56,8 @@ def command_proc(text):
     # 1 is AGAIN or FILE processing
     # 2 is QUIT
     signal = 0
-    global line
     global display_data
+    global delay_time
     print(text)
     
     # ignore defined comments
@@ -85,6 +85,7 @@ def command_proc(text):
             delay_time = int(text[5:])/10                 
         except:
             pass
+        print("Delay = ", delay_time)
     # check for repeat file processing
     elif text[0:5] == 'AGAIN':    # test for AGAIN
         print ("Scheduling file reload ", text)
@@ -113,6 +114,7 @@ def command_proc(text):
         try:           
             # get file name
             display_data = text[4:]
+            print("New file = ", display_data)
         except:
             pass
         
@@ -120,19 +122,23 @@ def command_proc(text):
     else:
         if text[0:1] != '0':
             try:         # cast first character as hex into integer where not zero
-                line_no = int('0x' + text[0:1])
+            #line_no = int(hex('0x' + text[0:1]))
+                line_no = int(text[0:1],16)
             except:
-                test = 99
-        else
+                line_no = 99
+        else:
             line_no = 0  # and where it is, set it to zero
         if line_no < 16:
-            print ("Processing line data ", line, text)
-            for y in range(16):
+            text = text[1:]
+            print ("Processing line data ", line_no, text)
+            for y in range(len(text)):
                 if text[y] == 'X':
                     display.loadpix(line_no,y,1)
+                elif text[y] == '.':
+                    display.loadpix(line_no,y,0)
                 
         # after 16 lines, display and reset counter
-        if line == 15:
+        if line_no == 15:
             display.show()
         pass
     
@@ -141,13 +147,17 @@ def command_proc(text):
 
 #try:
 while True: # start of main program loop
+    result = 0
     if commands.any() != 0:
         command = commands.readline().decode('utf-8').strip('\n\r')
         #print (command.strip('\n\r'))
         print(command)
-        result = command_proc(x)
+        result = command_proc(command)
     if result == 2:
-        break  
+        break
+    if delay_time != 0:
+        time.sleep(delay_time)
+        delay_time = 0
     while display_data != "": # loop while there is a file name to process
         try:      
             f = open(display_data)
@@ -172,6 +182,8 @@ while True: # start of main program loop
             else:
                 f.close()
                 display_data = ""
+        if commands.any() != 0:
+            break
      
 #except:
 #    pass

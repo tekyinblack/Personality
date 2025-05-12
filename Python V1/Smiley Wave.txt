@@ -1,0 +1,26 @@
+# Smiley
+CLEAR
+#123456789ABCDEF
+0.....XXXXXX.....
+1...XX......XX...
+2..X..........X..
+3.X............X.
+4.X...XX..XX...X.
+5X....XX..XX....X
+6X..............X
+7X..............X
+8X..............X
+9X..X........X..X
+AX...X......X...X
+B.X...XXXXXX...X.
+C.X............X.
+D..X..........X..
+E...XX......XX...
+F.....XXXXXX.....
+LEFT160
+RIGHT140
+DELAY5
+LEFT140
+RIGHT160
+DELAY5
+AGAIN
