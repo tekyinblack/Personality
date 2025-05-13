@@ -1,4 +1,4 @@
-## max7219 16x16 driver for Personality robot
+# max7219 16x16 driver for Personality robot
 # This class is intended to send picture data to a max7219 controlled
 # led matrix verbatim.
 # the picture is coded as an array of 0's and 1's to make it human readable
@@ -101,10 +101,3 @@ class Matrix16x16:
             for m in range(self.num):
                 self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
             self.cs(1)
-
-    def test(self):
-        self.buffer[0] = 0x11
-        self.buffer[1] = 0x22
-        self.buffer[2] = 0x44
-        self.buffer[3] = 0x88
-        self.buffer[4] = 0xff

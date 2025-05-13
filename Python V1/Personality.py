@@ -1,4 +1,7 @@
 # Personality Robot Addon Code for Instructables
+# v1.0.1 updates from first public release
+# added reset for servos
+# correction to file handling
 
 from machine import UART, Pin, SPI
 
@@ -122,7 +125,6 @@ def command_proc(text):
     else:
         if text[0:1] != '0':
             try:         # cast first character as hex into integer where not zero
-            #line_no = int(hex('0x' + text[0:1]))
                 line_no = int(text[0:1],16)
             except:
                 line_no = 99
@@ -137,10 +139,10 @@ def command_proc(text):
                 elif text[y] == '.':
                     display.loadpix(line_no,y,0)
                 
-        # after 16 lines, display and reset counter
+        # If line 15, display
         if line_no == 15:
             display.show()
-        pass
+
     
     return signal
 
@@ -164,7 +166,7 @@ while True: # start of main program loop
         except:
             print ("Processing exception in filename ", display_data)
             display_data = ""
-            pass
+            break
         print ("Processing file ",display_data)
         if f:
             for x in f:
@@ -192,9 +194,13 @@ print("...Complete")
 
 display.clear()
 display.show()
+left_arm.ServoAngle(0)
+right_arm.ServoAngle(0)
+print("Resetting servos")
+time.sleep(1)
 left_arm.deinit()
 right_arm.deinit()
-        
+print("End")        
 
 
 
